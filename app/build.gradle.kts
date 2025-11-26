@@ -1,7 +1,5 @@
 plugins {
-    // id("com.github.ben-manes.versions") version "0.52.0"
-    // id("com.diffplug.spotless") version "7.2.1"
-    application
+    id("java")
 }
 
 group = "ru.apzakharov"
@@ -16,7 +14,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
-application { mainClass.set("ru.apzakharov.Main") }
+
 
 tasks.test {
     useJUnitPlatform()
