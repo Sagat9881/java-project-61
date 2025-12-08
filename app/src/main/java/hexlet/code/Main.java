@@ -2,6 +2,8 @@ package hexlet.code;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Cli.print("Welcome to the Brain Games!");
+        Cli.print("May I have your name?");
+        Cli.print("Hello, %s!".formatted(Cli.read()));
     }
 }
