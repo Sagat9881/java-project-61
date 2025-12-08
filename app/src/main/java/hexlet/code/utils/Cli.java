@@ -1,4 +1,4 @@
-package hexlet.code;
+package hexlet.code.utils;
 
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -7,11 +7,11 @@ public class Cli {
     final static Scanner in = new Scanner(System.in);
     final static PrintStream out = System.out;
 
-    public static void print(String str){
-        out.print(str);
+    public static void println(String str){
+        out.println(str);
     }
 
-    public static String read(){
+    public static String readLine(){
         return in.nextLine();
     }
 }

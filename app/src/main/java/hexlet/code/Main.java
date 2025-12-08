@@ -1,9 +1,16 @@
 package hexlet.code;
 
+import hexlet.code.engine.Engine;
+import hexlet.code.games.Game;
+import hexlet.code.games.Greeting;
+
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        Cli.print("Welcome to the Brain Games!");
-        Cli.print("May I have your name?");
-        Cli.print("Hello, %s!".formatted(Cli.read()));
+        List<Game> games = List.of(new Greeting());
+
+        Engine.of(games).up().start();
     }
+
 }
