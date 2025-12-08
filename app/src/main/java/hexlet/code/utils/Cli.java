@@ -14,4 +14,7 @@ public class Cli {
     public static String readLine(){
         return in.nextLine();
     }
+    public static Integer readInt(){
+        return in.nextInt();
+    }
 }

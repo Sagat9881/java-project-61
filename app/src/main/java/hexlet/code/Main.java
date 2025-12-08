@@ -1,16 +1,13 @@
 package hexlet.code;
 
 import hexlet.code.engine.Engine;
-import hexlet.code.games.Game;
 import hexlet.code.games.Greeting;
 
-import java.util.List;
+import static hexlet.code.engine.EngineContext.games;
 
 public class Main {
     public static void main(String[] args) {
-        List<Game> games = List.of(new Greeting());
-
-        Engine.of(games).up().start();
+        Engine.of(games).up().start(new Greeting());
     }
 
 }

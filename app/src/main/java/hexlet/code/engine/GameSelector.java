@@ -19,8 +19,19 @@ public class GameSelector {
                 .collect(joining("\n"));
     }
 
+    public Game select(Integer key) {
+        currentGame.set(gamesMap.get(key));
+        return currentGame.get();
+    }
+
     public Game select(String key) {
-        currentGame.set(gamesMap.get(Integer.parseInt(key)));
+        currentGame.set
+                (gamesMap.values()
+                        .stream()
+                        .filter(g -> key.equals(g.name()))
+                        .findAny()
+                        .orElse(null)
+                );
         return currentGame.get();
     }
 
@@ -29,7 +40,6 @@ public class GameSelector {
         sb.append(" ").append("\n");
         sb.append(CHOOSE_GAME_STRING).append("\n");
         sb.append("Please enter the game number and press Enter.").append("\n");
-
 
         return sb.toString();
     }

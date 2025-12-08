@@ -10,7 +10,7 @@ public class EvenQuest extends Quest {
         super();
         value = random.nextInt(0, 20);
         super.answer = value % 2 == 0 ? "y" : "n";
-        super.question = String.join( "%s - Is the number even? ".formatted(value), "Type 'y' for 'yes' or 'n' for 'no'");
+        super.question = String.join("\n", "%s - Is the number even? ".formatted(value), "Type 'y' for 'yes' or 'n' for 'no'");
     }
 
 }

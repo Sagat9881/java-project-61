@@ -19,7 +19,7 @@ import static java.util.stream.Collectors.toMap;
 public class Engine {
     public static final String EXIT = "e";
     private Map<Integer, Game> gamesMap;
-    private final Map<String, Consumer<Engine>> commands = Map.of();
+    private final Map<String, Consumer<Engine>> commands = new HashMap<>();
     private Integer maxAttempts = 3;
     private EngineContext context;
     private final AtomicBoolean isEnd = new AtomicBoolean(false);
@@ -41,12 +41,20 @@ public class Engine {
 
     public void start() {
         Cli.println(context.select());
-        context.select(Cli.readLine());
+        context.select(Cli.readInt());
+        doGameplay();
+    }
+
+    public void start(Game game) {
+        context.select(game.name());
+        doGameplay();
+    }
+
+    private void doGameplay() {
+        Quest quest = context.currentGame().quest();
+        Cli.println(quest.question());
 
         while (!isEnd.get()) {
-            Quest quest = context.currentGame().quest();
-            Cli.println(quest.question());
-
             final String input = Cli.readLine();
 
             if (commands.containsKey(input)) {
