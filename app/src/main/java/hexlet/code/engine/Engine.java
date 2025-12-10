@@ -16,7 +16,7 @@ import static hexlet.code.engine.EngineContext.currentPlayer;
 import static java.util.stream.Collectors.toMap;
 
 public class Engine {
-    public static final String EXIT = "e";
+    public static final String EXIT = "0";
     private Map<String, Game> gamesMap;
     private final Map<String, Consumer<Engine>> commands = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class Engine {
         Engine engine = new Engine();
         engine.gamesMap = new HashMap<>( // avoid immutable
                 IntStream.range(0, games.size()).boxed()
-                        .collect(toMap(String::valueOf, games::get)));
+                        .collect(toMap(i -> String.valueOf(i + 1), games::get)));
         return engine;
     }
 
@@ -43,7 +43,12 @@ public class Engine {
 
     public void start() {
         Cli.println(context.printSelect());
-        context.select(Cli.readLine());
+        final String input = Cli.readLine();
+        if (commands.containsKey(input)) {
+            commands.get(input).accept(this);
+            return;
+        }
+        context.select(input);
         count.set(0);
         doGameplay();
     }

@@ -3,6 +3,7 @@ package hexlet.code.engine;
 import hexlet.code.games.Game;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
 
@@ -13,9 +14,9 @@ public class GameSelector {
 
     public GameSelector(Map<String, Game> gamesMap) {
         this.gamesMap = gamesMap;
-        this.CHOOSE_GAME_STRING = this.gamesMap.entrySet()
-                .stream()
-                .map(e -> "%s - %s".formatted(e.getKey(), e.getValue().name()))
+        this.CHOOSE_GAME_STRING = Stream.concat(Stream.of("0 - Exit"),
+                this.gamesMap.entrySet().stream()
+                .map(e -> "%s - %s".formatted(e.getKey(), e.getValue().name())))
                 .collect(joining("\n"));
     }
 
