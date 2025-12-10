@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static hexlet.code.engine.EngineContext.count;
@@ -18,17 +17,20 @@ import static java.util.stream.Collectors.toMap;
 
 public class Engine {
     public static final String EXIT = "e";
-    private Map<Integer, Game> gamesMap;
+    private Map<String, Game> gamesMap;
     private final Map<String, Consumer<Engine>> commands = new HashMap<>();
-    private Integer maxAttempts = 3;
+
+    private final Integer maxAttempts = 3;
+
     private EngineContext context;
+
     private final AtomicBoolean isEnd = new AtomicBoolean(false);
 
     public static Engine of(List<Game> games) {
         Engine engine = new Engine();
         engine.gamesMap = new HashMap<>( // avoid immutable
                 IntStream.range(0, games.size()).boxed()
-                        .collect(toMap(Function.identity(), games::get)));
+                        .collect(toMap(String::valueOf, games::get)));
         return engine;
     }
 
@@ -40,21 +42,23 @@ public class Engine {
     }
 
     public void start() {
-        Cli.println(context.select());
-        context.select(Cli.readInt());
+        Cli.println(context.printSelect());
+        context.select(Cli.readLine());
+        count.set(0);
         doGameplay();
     }
 
     public void start(Game game) {
-        context.select(game.name());
+        context.selectByName(game.name());
+        count.set(0);
         doGameplay();
     }
 
     private void doGameplay() {
-        Quest quest = context.currentGame().quest();
-        Cli.println(quest.question());
-
         while (!isEnd.get()) {
+            Quest quest = context.currentGame().generateQuest();
+            Cli.println(quest.question());
+
             final String input = Cli.readLine();
 
             if (commands.containsKey(input)) {
@@ -62,12 +66,12 @@ public class Engine {
             } else {
                 if (maxAttempts > count.incrementAndGet()) {
                     Cli.println("Your answer is: %s".formatted(input));
-                    Cli.println(context.currentGame().quest().answer());
 
                     if (context.currentGame().isWin(input)) {
-                        Cli.println("Correct!");
+                        Cli.println(context.currentGame().congratulations(input));
                         start();
                     } else {
+                        Cli.println(context.currentGame().failure(input));
                         Cli.println("Let's try again, %s!".formatted(currentPlayer.get().name()));
                     }
                 } else {
@@ -77,7 +81,7 @@ public class Engine {
             }
         }
 
-        Cli.println("good bye, %s!".formatted(currentPlayer.get().name()));
+        Cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
     }
 
 }

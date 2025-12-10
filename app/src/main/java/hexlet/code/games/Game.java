@@ -4,14 +4,19 @@ import hexlet.code.games.quest.Quest;
 
 public interface Game {
     String name();
+    String congratulations(String answer);
+    String failure(String answer);
 
-    Quest quest();
+    Quest generateQuest();
+
+    Quest currentQuest();
 
     default boolean isWin(String request) {
-        return quest().matcher().test(request);
+        return currentQuest().matcher().test(request);
     }
 
     default String answer() {
-        return quest().answer();
+        return currentQuest().answer();
     }
+
 }

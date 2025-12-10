@@ -1,14 +1,14 @@
 package hexlet.code.engine;
 
-import hexlet.code.games.Even;
-import hexlet.code.games.Game;
-import hexlet.code.games.Greeting;
+import hexlet.code.games.*;
+import hexlet.code.games.Math;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class EngineContext {
-    public static List<Game> games = List.of(new Greeting(), new Even());
+    public static List<Game> games = List.of(new Greeting(), new Even(),new Math(),new GCD());
+
     public static ThreadLocal<Player> currentPlayer = ThreadLocal.withInitial(() -> new Player("John Doe"));
     static AtomicLong count = new AtomicLong(0);
     private final GameSelector selector;
@@ -21,12 +21,12 @@ public class EngineContext {
         return selector.selectCurrent();
     }
 
-    public String select() {
-        return selector.select();
+    public String printSelect() {
+        return selector.toPrint();
     }
 
-    public Game select(Integer key) {
-        return selector.select(key);
+    public Game selectByName(String name) {
+        return selector.selectByName(name);
     }
     public Game select(String key) {
         return selector.select(key);

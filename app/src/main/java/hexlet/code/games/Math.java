@@ -1,27 +1,13 @@
 package hexlet.code.games;
 
-import hexlet.code.engine.Player;
-import hexlet.code.games.quest.GreetingQuest;
+import hexlet.code.games.quest.MathQuest;
 import hexlet.code.games.quest.Quest;
 
-import static hexlet.code.engine.EngineContext.currentPlayer;
-
-public class Greeting implements Game {
-    private final Quest quest;
-
-    @Override
-    public boolean isWin(String request) {
-        currentPlayer.set(new Player(request));
-        return Game.super.isWin(request);
-    }
-
-    public Greeting() {
-        quest = new GreetingQuest();
-    }
-
+public class Math implements Game{
+    private MathQuest quest;
     @Override
     public String name() {
-        return "Greeting";
+        return "Math";
     }
 
     @Override
@@ -36,9 +22,9 @@ public class Greeting implements Game {
 
     @Override
     public Quest generateQuest() {
+        this.quest = new MathQuest();
         return quest;
     }
-
 
     @Override
     public Quest currentQuest() {

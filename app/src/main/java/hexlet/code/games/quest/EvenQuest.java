@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class EvenQuest extends Quest {
     private final Random random = new Random();
-    private Integer value;
+    private final Integer value;
 
     public EvenQuest() {
         super();

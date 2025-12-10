@@ -8,23 +8,23 @@ import static java.util.stream.Collectors.joining;
 
 public class GameSelector {
     private final String CHOOSE_GAME_STRING;
-    private final Map<Integer, Game> gamesMap;
+    private final Map<String, Game> gamesMap;
     private static final ThreadLocal<Game> currentGame = new ThreadLocal<>();
 
-    public GameSelector(Map<Integer, Game> gamesMap) {
+    public GameSelector(Map<String, Game> gamesMap) {
         this.gamesMap = gamesMap;
         this.CHOOSE_GAME_STRING = this.gamesMap.entrySet()
                 .stream()
-                .map(e -> "%d - %s".formatted(e.getKey(), e.getValue().name()))
+                .map(e -> "%s - %s".formatted(e.getKey(), e.getValue().name()))
                 .collect(joining("\n"));
     }
 
-    public Game select(Integer key) {
+    public Game select(String key) {
         currentGame.set(gamesMap.get(key));
         return currentGame.get();
     }
 
-    public Game select(String key) {
+    public Game selectByName(String key) {
         currentGame.set
                 (gamesMap.values()
                         .stream()
@@ -35,7 +35,7 @@ public class GameSelector {
         return currentGame.get();
     }
 
-    public String select() {
+    public String toPrint() {
         StringBuilder sb = new StringBuilder();
         sb.append(" ").append("\n");
         sb.append(CHOOSE_GAME_STRING).append("\n");

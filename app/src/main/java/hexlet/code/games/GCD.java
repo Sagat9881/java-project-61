@@ -1,14 +1,14 @@
 package hexlet.code.games;
 
-import hexlet.code.games.quest.EvenQuest;
+import hexlet.code.games.quest.GCDQuest;
 import hexlet.code.games.quest.Quest;
 
-public class Even implements Game {
-    private EvenQuest quest;
+public class GCD implements Game {
+    private GCDQuest quest;
 
     @Override
     public String name() {
-        return "Even";
+        return "GCD";
     }
 
     @Override
@@ -18,18 +18,13 @@ public class Even implements Game {
 
     @Override
     public String failure(String answer) {
-        return "'%s' is wrong answer ;(. Correct answer was '%s'.".formatted(answer, quest.answer());
+        return  "'%s' is wrong answer ;(. Correct answer was '%s'.".formatted(answer, quest.answer());
     }
 
     @Override
     public Quest generateQuest() {
-        this.quest = new EvenQuest();
+        this.quest = new GCDQuest();
         return quest;
-    }
-
-    @Override
-    public boolean isWin(String request) {
-        return Game.super.isWin(request);
     }
 
     @Override
