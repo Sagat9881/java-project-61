@@ -1,0 +1,143 @@
+> Task :hexlet.code.Main.main()
+Welcome to the Brain Games!
+May I have your name?
+Ken
+Your answer is: Ken
+Hellow, Ken!
+ 
+0 - Exit
+1 - Greeting
+2 - Even
+3 - Math
+4 - GCD
+5 - Progression
+6 - Prime
+Please enter the game number and press Enter.
+
+2
+13 - Is the number even? 
+Type 'y' for 'yes' or 'n' for 'no'
+y
+Your answer is: y
+'y' is wrong answer ;(. Correct answer was 'n'.
+Let's try again, Ken!
+16 - Is the number even? 
+Type 'y' for 'yes' or 'n' for 'no'
+y
+Your answer is: y
+Correct!
+ 
+0 - Exit
+1 - Greeting
+2 - Even
+3 - Math
+4 - GCD
+5 - Progression
+6 - Prime
+Please enter the game number and press Enter.
+
+3
+82 - 96 = ?
+4
+Your answer is: 4
+'4' is wrong answer ;(. Correct answer was '-14'.
+Let's try again, Ken!
+75 - 32 = ?
+43
+Your answer is: 43
+Correct!
+ 
+0 - Exit
+1 - Greeting
+2 - Even
+3 - Math
+4 - GCD
+5 - Progression
+6 - Prime
+Please enter the game number and press Enter.
+
+4
+Find the greatest common divisor of given numbers: 14 and 42
+7
+Your answer is: 7
+'7' is wrong answer ;(. Correct answer was '14'.
+Let's try again, Ken!
+Find the greatest common divisor of given numbers: 87 and 58
+1
+Your answer is: 1
+'1' is wrong answer ;(. Correct answer was '29'.
+Let's try again, Ken!
+Find the greatest common divisor of given numbers: 17 and 75
+1
+Your answer is: 1
+Correct!
+ 
+0 - Exit
+1 - Greeting
+2 - Even
+3 - Math
+4 - GCD
+5 - Progression
+6 - Prime
+Please enter the game number and press Enter.
+
+5
+What number is missing in the progression?
+ Question: 25 47 69 .. 113 135 157 179 201
+91
+Your answer is: 91
+Correct!
+ 
+0 - Exit
+1 - Greeting
+2 - Even
+3 - Math
+4 - GCD
+5 - Progression
+6 - Prime
+Please enter the game number and press Enter.
+
+5
+What number is missing in the progression?
+ Question: 8 11 14 17 20 .. 26
+2
+Your answer is: 2
+'2' is wrong answer ;(. Correct answer was '23'.
+Let's try again, Ken!
+What number is missing in the progression?
+ Question: 10 26 42 58 74 90 106 .. 138
+122
+Your answer is: 122
+Correct!
+ 
+0 - Exit
+1 - Greeting
+2 - Even
+3 - Math
+4 - GCD
+5 - Progression
+6 - Prime
+Please enter the game number and press Enter.
+
+6
+8 - Is the number prime?
+y
+Your answer is: y
+'y' is wrong answer ;(. Correct answer was 'n'.
+Let's try again, Ken!
+23 - Is the number prime?
+y
+Your answer is: y
+Correct!
+ 
+0 - Exit
+1 - Greeting
+2 - Even
+3 - Math
+4 - GCD
+5 - Progression
+6 - Prime
+Please enter the game number and press Enter.
+
+0
+Good bye, Ken!
