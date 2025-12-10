@@ -2,7 +2,6 @@ package hexlet.code.games.quest;
 
 import java.util.Random;
 import java.util.function.BiFunction;
-import java.util.stream.Stream;
 
 public class MathQuest extends Quest {
     private static final Random r = new Random();

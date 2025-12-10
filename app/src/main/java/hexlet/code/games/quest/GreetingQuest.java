@@ -1,6 +1,5 @@
 package hexlet.code.games.quest;
 
-import hexlet.code.engine.Engine;
 import hexlet.code.engine.Player;
 
 import static hexlet.code.engine.EngineContext.currentPlayer;

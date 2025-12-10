@@ -1,13 +1,13 @@
 package hexlet.code.engine;
 
-import hexlet.code.games.*;
 import hexlet.code.games.Math;
+import hexlet.code.games.*;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class EngineContext {
-    public static List<Game> games = List.of(new Greeting(), new Even(),new Math(),new GCD(),new Progression());
+    public static List<Game> games = List.of(new Greeting(), new Even(),new Math(),new GCD(),new Progression(),new Prime());
 
     public static ThreadLocal<Player> currentPlayer = ThreadLocal.withInitial(() -> new Player("John Doe"));
     static AtomicLong count = new AtomicLong(0);

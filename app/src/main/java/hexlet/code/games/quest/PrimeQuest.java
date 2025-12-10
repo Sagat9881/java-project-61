@@ -1,0 +1,33 @@
+package hexlet.code.games.quest;
+
+import java.util.Random;
+
+public class PrimeQuest extends Quest {
+
+    private static final String NO = "n";
+    private static final String YES = "y";
+    private static final Random r = new Random();
+
+    private final int n;
+
+    public PrimeQuest(int n) {
+        super("%d - Is the number prime?".formatted(n), isPrime(n));
+        this.n = n;
+    }
+
+    public PrimeQuest() {
+        this(r.nextInt(100));
+    }
+
+    private static String isPrime(int n) {
+        if (n == 1) return NO;
+        if (n == 2) return YES;
+        if (n % 2 == 0) return NO;
+        int sqrt = (int) Math.sqrt(n);
+        int i = Math.max(sqrt, 3);
+        for (; i <= sqrt; i += 2) {
+            if (n % i == 0) return NO;
+        }
+        return YES;
+    }
+}
