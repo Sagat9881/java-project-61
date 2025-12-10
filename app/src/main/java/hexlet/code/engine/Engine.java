@@ -61,15 +61,18 @@ public class Engine {
 
     private void doGameplay() {
         while (!isEnd.get()) {
-            Quest quest = context.currentGame().generateQuest();
-            Cli.println(quest.question());
+            if (maxAttempts >= count.incrementAndGet()) {
+                Cli.println
+                        (context.currentGame()
+                                .generateQuest()
+                                .question()
+                        );
 
-            final String input = Cli.readLine();
+                final String input = Cli.readLine();
 
-            if (commands.containsKey(input)) {
-                commands.get(input).accept(this);
-            } else {
-                if (maxAttempts > count.incrementAndGet()) {
+                if (commands.containsKey(input)) {
+                    commands.get(input).accept(this);
+                } else {
                     Cli.println("Your answer is: %s".formatted(input));
 
                     if (context.currentGame().isWin(input)) {
@@ -79,14 +82,17 @@ public class Engine {
                         Cli.println(context.currentGame().failure(input));
                         Cli.println("Let's try again, %s!".formatted(currentPlayer.get().name()));
                     }
-                } else {
-                    Cli.println("Too many attempts!");
-                    start();
                 }
+            } else {
+                Cli.println("Too many attempts!");
+                start();
             }
         }
-
         Cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
+
     }
 
+
 }
+
+

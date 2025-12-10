@@ -32,7 +32,7 @@ public abstract class Quest {
     }
 
     public String answer() {
-        return "Right answer is: %s".formatted(answer);
+        return answer;
     }
 
     public String question() {
