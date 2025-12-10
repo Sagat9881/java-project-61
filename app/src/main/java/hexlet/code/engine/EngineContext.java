@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class EngineContext {
-    public static List<Game> games = List.of(new Greeting(), new Even(),new Math(),new GCD());
+    public static List<Game> games = List.of(new Greeting(), new Even(),new Math(),new GCD(),new Progression());
 
     public static ThreadLocal<Player> currentPlayer = ThreadLocal.withInitial(() -> new Player("John Doe"));
     static AtomicLong count = new AtomicLong(0);

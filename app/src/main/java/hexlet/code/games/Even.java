@@ -3,22 +3,10 @@ package hexlet.code.games;
 import hexlet.code.games.quest.EvenQuest;
 import hexlet.code.games.quest.Quest;
 
-public class Even implements Game {
-    private EvenQuest quest;
+public class Even extends SimpleGame {
 
-    @Override
-    public String name() {
-        return "Even";
-    }
-
-    @Override
-    public String congratulations(String answer) {
-        return "Correct!";
-    }
-
-    @Override
-    public String failure(String answer) {
-        return "'%s' is wrong answer ;(. Correct answer was '%s'.".formatted(answer, quest.answer());
+    public Even() {
+        super(new EvenQuest());
     }
 
     @Override
@@ -27,13 +15,4 @@ public class Even implements Game {
         return quest;
     }
 
-    @Override
-    public boolean isWin(String request) {
-        return Game.super.isWin(request);
-    }
-
-    @Override
-    public Quest currentQuest() {
-        return quest;
-    }
 }

@@ -3,32 +3,16 @@ package hexlet.code.games;
 import hexlet.code.games.quest.GCDQuest;
 import hexlet.code.games.quest.Quest;
 
-public class GCD implements Game {
-    private GCDQuest quest;
+public class GCD extends SimpleGame {
 
-    @Override
-    public String name() {
-        return "GCD";
-    }
-
-    @Override
-    public String congratulations(String answer) {
-        return "Correct!";
-    }
-
-    @Override
-    public String failure(String answer) {
-        return  "'%s' is wrong answer ;(. Correct answer was '%s'.".formatted(answer, quest.answer());
+    public GCD() {
+        super(new GCDQuest());
     }
 
     @Override
     public Quest generateQuest() {
-        this.quest = new GCDQuest();
+        super.quest = new GCDQuest();
         return quest;
     }
 
-    @Override
-    public Quest currentQuest() {
-        return quest;
-    }
 }
