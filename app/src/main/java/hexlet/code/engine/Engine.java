@@ -35,7 +35,7 @@ public class Engine {
         return engine;
     }
 
-    public Engine up( GameAdapter cli) {
+    public Engine up(GameAdapter cli) {
         this.context = new EngineContext(new GameSelector(this.gamesMap));
         this.cli = cli;
         commands.put(EXIT, (s) -> s.isEnd.set(true));
@@ -45,15 +45,20 @@ public class Engine {
 
     public void start() {
         cli.println(context.printSelect());
-        final String input = cli.readInput();
+        final String input = cli.readInput(true);
         if (commands.containsKey(input)) {
             commands.get(input).accept(this);
             return;
         }
+        if (input.isBlank()) {
+            commands.get(EXIT).accept(this);
+        }
+
         context.select(input);
         count.set(0);
         doGameplay();
     }
+
 
     public void start(Game game) {
         context.selectByName(game.name());
@@ -64,7 +69,7 @@ public class Engine {
     private void doGameplay() {
         while (!isEnd.get()) {
             if (maxAttempts >= count.incrementAndGet()) {
-                Cli.println
+                cli.println
                         (context.currentGame()
                                 .generateQuest()
                                 .question()
@@ -78,11 +83,11 @@ public class Engine {
                     cli.println("Your answer is: %s".formatted(input));
 
                     if (context.currentGame().isWin(input)) {
-                        Cli.println(context.currentGame().congratulations(input));
+                        cli.println(context.currentGame().congratulations(input));
                         start();
                     } else {
-                        Cli.println(context.currentGame().failure(input));
-                        Cli.println("Let's try again, %s!".formatted(currentPlayer.get().name()));
+                        cli.println(context.currentGame().failure(input));
+                        cli.println("Let's try again, %s!".formatted(currentPlayer.get().name()));
                     }
                 }
             } else {
