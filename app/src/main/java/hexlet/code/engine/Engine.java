@@ -2,8 +2,10 @@ package hexlet.code.engine;
 
 import hexlet.code.adapter.ConsoleGameAdapter;
 import hexlet.code.adapter.GameAdapter;
+import hexlet.code.engine.interceptors.in.CommandInputInterceptor;
+import hexlet.code.engine.interceptors.in.GreetingInterceptor;
+import hexlet.code.engine.interceptors.in.InputInterceptor;
 import hexlet.code.games.Game;
-import hexlet.code.games.greeting.Greeting;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -18,13 +20,13 @@ import static hexlet.code.engine.EngineContext.*;
 import static java.util.stream.Collectors.toMap;
 
 public class Engine {
-    public static final String NO = "n";
-    public static final String YES = "y";
+    public static final String NO = "no";
+    public static final String YES = "yes";
     public static final String JOHN_DOE = "John Doe";
 
     private Map<String, Game> gamesMap;
-    private final Map<String, Consumer<Engine>> commands = new HashMap<>();
-
+    private Map<String, Consumer<Engine>> commands;
+    private List<InputInterceptor> inputInterceptors;
     private EngineContext context;
     private GameAdapter cli;
 
@@ -38,17 +40,25 @@ public class Engine {
         Engine engine = new Engine();
         engine.gamesMap = new HashMap<>( // avoid immutable
                 IntStream.range(0, games.size()).boxed()
-                        .collect(toMap(i -> String.valueOf(i + 1), games::get)));
+                        .collect(toMap(i -> String.valueOf(i + 2), games::get)));
+        engine.commands = new HashMap<>();
         return engine;
     }
 
     public Engine up() {
-        return up(new ConsoleGameAdapter());
+        return up(
+                new ConsoleGameAdapter(),
+                List.of(
+                        new CommandInputInterceptor(commands,this),
+                        new GreetingInterceptor(this) )
+        );
     }
 
-    public Engine up(GameAdapter cli) {
-        this.context = new EngineContext(new GameSelector(this.gamesMap));
+    public Engine up(GameAdapter cli,List<InputInterceptor> inputInterceptors) {
+        this.inputInterceptors = inputInterceptors;
         this.cli = cli;
+
+        this.context = new EngineContext(new GameSelector(this.gamesMap));
         commands.put(EXIT_KEY, (s) -> s.isNotEnd.set(false));
 
         cli.setIn(new BufferedReader(new InputStreamReader(System.in)));
@@ -62,14 +72,7 @@ public class Engine {
         cli.println(context.printSelect());
         final String userAnswer = cli.readInput(true);
 
-        if (commands.containsKey(userAnswer)) {
-            commands.get(userAnswer).accept(this);
-            return;
-        }
-
-        if (JOHN_DOE.equals(currentPlayer.get().name())) {
-            start(Greeting.class);
-        }
+        inputInterceptors.forEach(i -> i.intercept(userAnswer));
 
         context.selectByKey(userAnswer);
         doGameplay();

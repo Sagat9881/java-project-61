@@ -14,7 +14,7 @@ import static hexlet.code.engine.Engine.JOHN_DOE;
 
 public class EngineContext {
     public static final String EXIT_KEY = "0";
-    public static List<Game> games = List.of(new Greeting(), new Even(),new Math(),new GCD(),new Progression(),new Prime());
+    public static List<Game> games = List.of( new Even(),new Math(),new GCD(),new Progression(),new Prime());
     public static ThreadLocal<Player> currentPlayer = ThreadLocal.withInitial(() -> new Player(JOHN_DOE));
 
     private final GameSelector selector;

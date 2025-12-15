@@ -8,8 +8,6 @@ import static hexlet.code.engine.Engine.NO;
 import static hexlet.code.engine.Engine.YES;
 
 public class PrimeQuest extends Quest {
-
-
     private static final Random r = new Random();
 
     public PrimeQuest(int n) {
@@ -17,7 +15,6 @@ public class PrimeQuest extends Quest {
                 String.join("\n",
                         "%d - Is the number prime?".formatted(n),
                         "Type %s for 'yes' or %s for 'no'".formatted(YES, NO)),
-
                 isPrime(n));
     }
 

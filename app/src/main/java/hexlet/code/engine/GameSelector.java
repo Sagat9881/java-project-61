@@ -1,8 +1,10 @@
 package hexlet.code.engine;
 
 import hexlet.code.games.Game;
+import hexlet.code.games.greeting.Greeting;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static hexlet.code.engine.EngineContext.EXIT_KEY;
@@ -11,14 +13,17 @@ import static java.util.stream.Collectors.joining;
 public class GameSelector {
     private final String CHOOSE_GAME_STRING;
     private final Map<String, Game> gamesMap;
-    private static final ThreadLocal<Game> currentGame = new ThreadLocal<>();
+    private static final ThreadLocal<Game> currentGame =  ThreadLocal.withInitial(Greeting::new);
 
     public GameSelector(Map<String, Game> gamesMap) {
         this.gamesMap = gamesMap;
-        this.CHOOSE_GAME_STRING = Stream.concat(
+        this.CHOOSE_GAME_STRING = Stream.of(
                         Stream.of("%s - Exit".formatted(EXIT_KEY)),
+                        Stream.of("1 - %s".formatted(Greeting.class.getSimpleName())),
                         this.gamesMap.entrySet().stream().map(e -> "%s - %s".formatted(e.getKey(), e.getValue().name()))
-                ).collect(joining("\n"));
+                )
+                .flatMap(Function.identity())
+                .collect(joining("\n"));
     }
 
     public Game select(String key) {

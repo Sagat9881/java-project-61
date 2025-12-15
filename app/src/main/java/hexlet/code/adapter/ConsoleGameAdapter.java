@@ -7,6 +7,10 @@ public class ConsoleGameAdapter implements GameAdapter {
     private BufferedReader in;
     private PrintStream out;
 
+    /* TODO: Хотелось бы интерпретировать пользовтельский ввод как сообщение для Engine в дальнейшем.
+        private Engine engine;     */
+
+
     private final static int maxRetryCount = 3;
 
     @Override
