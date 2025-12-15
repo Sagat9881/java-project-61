@@ -9,9 +9,9 @@ import static hexlet.code.engine.EngineContext.currentPlayer;
 public class Greeting extends SimpleGame {
 
     @Override
-    public String congratulations(String answer) {
-        currentPlayer.set(new Player(answer));
-        return "Hellow, %s!".formatted(answer);
+    public String congratulations(String answerRequest) {
+        currentPlayer.set(new Player(answerRequest));
+        return "Hellow, %s!".formatted(answerRequest);
     }
 
     public Greeting() {
@@ -21,5 +21,10 @@ public class Greeting extends SimpleGame {
     @Override
     public Quest generateQuest() {
         return quest;
+    }
+
+    @Override
+    public int attempts() {
+        return 1;
     }
 }

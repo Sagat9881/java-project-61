@@ -4,17 +4,19 @@ import hexlet.code.games.Quest;
 
 import java.util.Random;
 
+import static hexlet.code.engine.Engine.NO;
+import static hexlet.code.engine.Engine.YES;
+
 public class PrimeQuest extends Quest {
 
-    private static final String NO = "n";
-    private static final String YES = "y";
+
     private static final Random r = new Random();
 
     public PrimeQuest(int n) {
         super(
                 String.join("\n",
                         "%d - Is the number prime?".formatted(n),
-                        "Type 'y' for 'yes' or 'n' for 'no'"),
+                        "Type %s for 'yes' or %s for 'no'".formatted(YES, NO)),
 
                 isPrime(n));
     }

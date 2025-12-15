@@ -13,18 +13,23 @@ public abstract class SimpleGame implements Game {
     }
 
     @Override
-    public String congratulations(String answer) {
+    public String congratulations(String answerRequest) {
         return "Correct!";
     }
 
     @Override
-    public String failure(String answer) {
-        return "'%s' is wrong answer ;(. Correct answer was '%s'.".formatted(answer, quest.answer());
+    public String failure(String answerRequest) {
+        return "'%s' is wrong answer ;(. Correct answer was '%s'.".formatted(answerRequest, quest.answer());
     }
 
 
     @Override
     public Quest currentQuest() {
         return quest;
+    }
+
+    @Override
+    public int attempts() {
+        return 3;
     }
 }
