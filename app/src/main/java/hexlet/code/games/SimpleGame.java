@@ -1,7 +1,5 @@
 package hexlet.code.games;
 
-import hexlet.code.games.quest.Quest;
-
 public abstract class SimpleGame implements Game {
     protected Quest quest;
 

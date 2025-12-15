@@ -1,7 +1,7 @@
-package hexlet.code.games;
+package hexlet.code.games.gcd;
 
-import hexlet.code.games.quest.GCDQuest;
-import hexlet.code.games.quest.Quest;
+import hexlet.code.games.SimpleGame;
+import hexlet.code.games.Quest;
 
 public class GCD extends SimpleGame {
 

@@ -1,7 +1,7 @@
-package hexlet.code.games;
+package hexlet.code.games.even;
 
-import hexlet.code.games.quest.EvenQuest;
-import hexlet.code.games.quest.Quest;
+import hexlet.code.games.SimpleGame;
+import hexlet.code.games.Quest;
 
 public class Even extends SimpleGame {
 

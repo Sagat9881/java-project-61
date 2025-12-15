@@ -5,7 +5,7 @@ import hexlet.code.games.Game;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static hexlet.code.engine.Engine.EXIT;
+import static hexlet.code.engine.EngineContext.EXIT;
 import static java.util.stream.Collectors.joining;
 
 public class GameSelector {

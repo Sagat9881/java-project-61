@@ -2,7 +2,6 @@ package hexlet.code.engine;
 
 import hexlet.code.adapter.GameAdapter;
 import hexlet.code.games.Game;
-import hexlet.code.utils.Cli;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,12 +12,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
-import static hexlet.code.engine.EngineContext.count;
-import static hexlet.code.engine.EngineContext.currentPlayer;
+import static hexlet.code.engine.EngineContext.*;
 import static java.util.stream.Collectors.toMap;
 
 public class Engine {
-    public static final String EXIT = "0";
     private Map<String, Game> gamesMap;
     private final Map<String, Consumer<Engine>> commands = new HashMap<>();
 
@@ -58,8 +55,9 @@ public class Engine {
             return;
         }
 
-        if (input.isBlank()) {
+        if(input.isBlank()){
             commands.get(EXIT).accept(this);
+            return;
         }
 
         context.select(input);
@@ -86,7 +84,7 @@ public class Engine {
                                 .question()
                         );
 
-                final String input = Cli.readLine();
+                final String input = cli.readInput();
                 cli.println("Your answer is: %s".formatted(input));
 
                 if (context.currentGame().isWin(input)) {

@@ -1,4 +1,6 @@
-package hexlet.code.games.quest;
+package hexlet.code.games.gcd;
+
+import hexlet.code.games.Quest;
 
 import java.util.Random;
 

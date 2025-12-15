@@ -1,9 +1,9 @@
-package hexlet.code.games;
+package hexlet.code.games.progression;
 
-import hexlet.code.games.quest.ProgressionQuest;
-import hexlet.code.games.quest.Quest;
+import hexlet.code.games.SimpleGame;
+import hexlet.code.games.Quest;
 
-public class Progression extends SimpleGame{
+public class Progression extends SimpleGame {
 
     public Progression() {
         super(new ProgressionQuest());

@@ -1,4 +1,6 @@
-package hexlet.code.games.quest;
+package hexlet.code.games.greeting;
+
+import hexlet.code.games.Quest;
 
 public class GreetingQuest extends Quest {
 

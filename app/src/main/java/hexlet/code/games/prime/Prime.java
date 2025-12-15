@@ -1,9 +1,9 @@
-package hexlet.code.games;
+package hexlet.code.games.prime;
 
-import hexlet.code.games.quest.PrimeQuest;
-import hexlet.code.games.quest.Quest;
+import hexlet.code.games.SimpleGame;
+import hexlet.code.games.Quest;
 
-public class Prime extends SimpleGame{
+public class Prime extends SimpleGame {
     public Prime() {
         super(new PrimeQuest());
     }

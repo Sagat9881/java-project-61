@@ -1,7 +1,7 @@
-package hexlet.code.games;
+package hexlet.code.games.math;
 
-import hexlet.code.games.quest.MathQuest;
-import hexlet.code.games.quest.Quest;
+import hexlet.code.games.SimpleGame;
+import hexlet.code.games.Quest;
 
 public class Math extends SimpleGame {
 

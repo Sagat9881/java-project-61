@@ -1,4 +1,6 @@
-package hexlet.code.games.quest;
+package hexlet.code.games.prime;
+
+import hexlet.code.games.Quest;
 
 import java.util.Random;
 
@@ -8,11 +10,13 @@ public class PrimeQuest extends Quest {
     private static final String YES = "y";
     private static final Random r = new Random();
 
-    private final int n;
-
     public PrimeQuest(int n) {
-        super("%d - Is the number prime?".formatted(n), isPrime(n));
-        this.n = n;
+        super(
+                String.join("\n",
+                        "%d - Is the number prime?".formatted(n),
+                        "Type 'y' for 'yes' or 'n' for 'no'"),
+
+                isPrime(n));
     }
 
     public PrimeQuest() {

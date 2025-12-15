@@ -1,4 +1,4 @@
-package hexlet.code.games.quest;
+package hexlet.code.games;
 
 import java.util.function.Predicate;
 

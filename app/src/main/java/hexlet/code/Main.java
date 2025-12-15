@@ -2,7 +2,7 @@ package hexlet.code;
 
 import hexlet.code.adapter.ConsoleGameAdapter;
 import hexlet.code.engine.Engine;
-import hexlet.code.games.Greeting;
+import hexlet.code.games.greeting.Greeting;
 
 import static hexlet.code.engine.EngineContext.games;
 

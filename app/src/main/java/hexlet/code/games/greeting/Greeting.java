@@ -1,8 +1,8 @@
-package hexlet.code.games;
+package hexlet.code.games.greeting;
 
 import hexlet.code.engine.Player;
-import hexlet.code.games.quest.GreetingQuest;
-import hexlet.code.games.quest.Quest;
+import hexlet.code.games.SimpleGame;
+import hexlet.code.games.Quest;
 
 import static hexlet.code.engine.EngineContext.currentPlayer;
 
