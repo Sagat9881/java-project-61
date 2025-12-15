@@ -68,6 +68,16 @@ public class Engine {
         return this;
     }
 
+
+    public void start() {
+        doStart();
+        printGoodbye();
+    }
+    public void start(Class<? extends Game> game) {
+        start(game.getSimpleName());
+    }
+
+
     private void doStart() {
         cli.println(context.printSelect());
         final String userAnswer = cli.readInput(true);
@@ -78,25 +88,10 @@ public class Engine {
         doGameplay();
     }
 
-    public void start() {
-        doStart();
-        printGoodbye();
-    }
-
-
-    public void start(Class<? extends Game> game) {
-        start(game.getSimpleName());
-    }
-
     private void start(String game) {
         context.selectByName(game);
         doGameplay();
     }
-
-    private void printGoodbye() {
-        cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
-    }
-
     private void doGameplay() {
         for (int count = 0; (count < context.currentGame().attempts()) && isNotEnd.get(); count++) {
             cli.println
@@ -115,6 +110,9 @@ public class Engine {
                 cli.println("Let's try again, %s!".formatted(currentPlayer.get().name()));
             }
         }
+    }
+    private void printGoodbye() {
+        cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
     }
 
 }
