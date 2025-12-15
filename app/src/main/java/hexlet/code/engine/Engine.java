@@ -4,6 +4,8 @@ import hexlet.code.adapter.GameAdapter;
 import hexlet.code.games.Game;
 import hexlet.code.utils.Cli;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,17 +41,23 @@ public class Engine {
         this.context = new EngineContext(new GameSelector(this.gamesMap));
         this.cli = cli;
         commands.put(EXIT, (s) -> s.isEnd.set(true));
-        Cli.println("Welcome to the Brain Games!");
+
+        cli.setIn(new BufferedReader(new InputStreamReader(System.in)));
+        cli.setOut(System.out);
+
+        cli.println("Welcome to the Brain Games!");
         return this;
     }
 
     public void start() {
         cli.println(context.printSelect());
         final String input = cli.readInput(true);
+
         if (commands.containsKey(input)) {
             commands.get(input).accept(this);
             return;
         }
+
         if (input.isBlank()) {
             commands.get(EXIT).accept(this);
         }
@@ -63,7 +71,10 @@ public class Engine {
     public void start(Game game) {
         context.selectByName(game.name());
         count.set(0);
+
         doGameplay();
+
+        cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
     }
 
     private void doGameplay() {
@@ -95,10 +106,7 @@ public class Engine {
                 start();
             }
         }
-        cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
-
     }
-
 
 }
 

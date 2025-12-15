@@ -1,18 +1,12 @@
 package hexlet.code.adapter;
 
-import hexlet.code.engine.Engine;
-
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
 
 public class ConsoleGameAdapter implements GameAdapter {
-    private final Map<String, Consumer<Engine>> commands = new HashMap<>();
-    private final static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-    private final static PrintStream out = System.out;
+    private BufferedReader in;
+    private PrintStream out;
+
     private final static int maxRetryCount = 3;
 
     @Override
@@ -23,6 +17,16 @@ public class ConsoleGameAdapter implements GameAdapter {
     @Override
     public String readInput(boolean allowEmptyInput) {
         return retryableRead(allowEmptyInput);
+    }
+
+    @Override
+    public void setIn(BufferedReader in) {
+        this.in = in;
+    }
+
+    @Override
+    public void setOut(PrintStream out) {
+        this.out = out;
     }
 
     private String retryableRead(boolean allowEmptyInput) {
