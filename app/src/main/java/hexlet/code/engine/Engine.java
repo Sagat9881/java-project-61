@@ -55,7 +55,7 @@ public class Engine {
             return;
         }
 
-        if(input.isBlank()){
+        if (input.isBlank()) {
             commands.get(EXIT).accept(this);
             return;
         }
@@ -65,13 +65,23 @@ public class Engine {
         doGameplay();
     }
 
+    public void start() {
+        reStart();
+
+        printGoodbye();
+    }
+
 
     public void start(Game game) {
         context.selectByName(game.name());
-        count.set(0);
 
+        count.set(0);
         doGameplay();
 
+        printGoodbye();
+    }
+
+    private void printGoodbye() {
         cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
     }
 
