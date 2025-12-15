@@ -49,7 +49,7 @@ public class Engine {
         return this;
     }
 
-    public void start() {
+    public void reStart() {
         cli.println(context.printSelect());
         final String input = cli.readInput(true);
 
@@ -87,23 +87,19 @@ public class Engine {
                         );
 
                 final String input = Cli.readLine();
+                cli.println("Your answer is: %s".formatted(input));
 
-                if (commands.containsKey(input)) {
-                    commands.get(input).accept(this);
+                if (context.currentGame().isWin(input)) {
+                    cli.println(context.currentGame().congratulations(input));
+                    reStart();
                 } else {
-                    cli.println("Your answer is: %s".formatted(input));
-
-                    if (context.currentGame().isWin(input)) {
-                        cli.println(context.currentGame().congratulations(input));
-                        start();
-                    } else {
-                        cli.println(context.currentGame().failure(input));
-                        cli.println("Let's try again, %s!".formatted(currentPlayer.get().name()));
-                    }
+                    cli.println(context.currentGame().failure(input));
+                    cli.println("Let's try again, %s!".formatted(currentPlayer.get().name()));
                 }
+
             } else {
                 cli.println("Too many attempts!");
-                start();
+                reStart();
             }
         }
     }

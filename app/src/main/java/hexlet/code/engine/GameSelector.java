@@ -5,6 +5,7 @@ import hexlet.code.games.Game;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static hexlet.code.engine.Engine.EXIT;
 import static java.util.stream.Collectors.joining;
 
 public class GameSelector {
@@ -14,10 +15,10 @@ public class GameSelector {
 
     public GameSelector(Map<String, Game> gamesMap) {
         this.gamesMap = gamesMap;
-        this.CHOOSE_GAME_STRING = Stream.concat(Stream.of("0 - Exit"),
-                        this.gamesMap.entrySet().stream()
-                                .map(e -> "%s - %s".formatted(e.getKey(), e.getValue().name())))
-                .collect(joining("\n"));
+        this.CHOOSE_GAME_STRING = Stream.concat(
+                        Stream.of("%s - Exit".formatted(EXIT)),
+                        this.gamesMap.entrySet().stream().map(e -> "%s - %s".formatted(e.getKey(), e.getValue().name()))
+                ).collect(joining("\n"));
     }
 
     public Game select(String key) {
