@@ -1,7 +1,7 @@
 package hexlet.code.engine;
 
+import hexlet.code.adapter.GameAdapter;
 import hexlet.code.games.Game;
-import hexlet.code.games.quest.Quest;
 import hexlet.code.utils.Cli;
 
 import java.util.HashMap;
@@ -23,6 +23,7 @@ public class Engine {
     private final Integer maxAttempts = 3;
 
     private EngineContext context;
+    private GameAdapter cli;
 
     private final AtomicBoolean isEnd = new AtomicBoolean(false);
 
@@ -34,16 +35,17 @@ public class Engine {
         return engine;
     }
 
-    public Engine up() {
+    public Engine up( GameAdapter cli) {
         this.context = new EngineContext(new GameSelector(this.gamesMap));
+        this.cli = cli;
         commands.put(EXIT, (s) -> s.isEnd.set(true));
         Cli.println("Welcome to the Brain Games!");
         return this;
     }
 
     public void start() {
-        Cli.println(context.printSelect());
-        final String input = Cli.readLine();
+        cli.println(context.printSelect());
+        final String input = cli.readInput();
         if (commands.containsKey(input)) {
             commands.get(input).accept(this);
             return;
@@ -73,7 +75,7 @@ public class Engine {
                 if (commands.containsKey(input)) {
                     commands.get(input).accept(this);
                 } else {
-                    Cli.println("Your answer is: %s".formatted(input));
+                    cli.println("Your answer is: %s".formatted(input));
 
                     if (context.currentGame().isWin(input)) {
                         Cli.println(context.currentGame().congratulations(input));
@@ -84,11 +86,11 @@ public class Engine {
                     }
                 }
             } else {
-                Cli.println("Too many attempts!");
+                cli.println("Too many attempts!");
                 start();
             }
         }
-        Cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
+        cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
 
     }
 

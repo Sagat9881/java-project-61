@@ -15,13 +15,15 @@ public class GameSelector {
     public GameSelector(Map<String, Game> gamesMap) {
         this.gamesMap = gamesMap;
         this.CHOOSE_GAME_STRING = Stream.concat(Stream.of("0 - Exit"),
-                this.gamesMap.entrySet().stream()
-                .map(e -> "%s - %s".formatted(e.getKey(), e.getValue().name())))
+                        this.gamesMap.entrySet().stream()
+                                .map(e -> "%s - %s".formatted(e.getKey(), e.getValue().name())))
                 .collect(joining("\n"));
     }
 
     public Game select(String key) {
-        currentGame.set(gamesMap.get(key));
+        if (gamesMap.containsKey(key)) {
+            currentGame.set(gamesMap.get(key));
+        }
         return currentGame.get();
     }
 
@@ -31,7 +33,7 @@ public class GameSelector {
                         .stream()
                         .filter(g -> key.equals(g.name()))
                         .findAny()
-                        .orElse(null)
+                        .orElse(currentGame.get())
                 );
         return currentGame.get();
     }
