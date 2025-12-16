@@ -4,6 +4,7 @@ import hexlet.code.engine.Player;
 import hexlet.code.games.Quest;
 import hexlet.code.games.SimpleGame;
 
+import static hexlet.code.engine.Engine.JOHN_DOE;
 import static hexlet.code.engine.EngineContext.currentPlayer;
 
 public class Greeting extends SimpleGame {
@@ -25,6 +26,6 @@ public class Greeting extends SimpleGame {
 
     @Override
     public int attempts() {
-        return 1;
+        return JOHN_DOE.equals(currentPlayer.get().name()) ? 1 : 0;
     }
 }

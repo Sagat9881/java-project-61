@@ -85,6 +85,7 @@ public class Engine {
     private void doStart() {
         cli.println(context.printSelect());
         final String userAnswer = inputInterceptors.process(cli.readInput(true));
+
         if (!userAnswer.isBlank()) {
             context.selectByKey(userAnswer);
             doGameplay();
