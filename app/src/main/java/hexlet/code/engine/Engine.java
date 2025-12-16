@@ -8,6 +8,7 @@ import hexlet.code.engine.interceptors.in.InputInterceptor;
 import hexlet.code.engine.interceptors.in.InterceptorChain;
 import hexlet.code.games.Game;
 import hexlet.code.utils.Chain;
+import hexlet.code.utils.EngineHelper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,10 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
-import java.util.stream.IntStream;
 
 import static hexlet.code.engine.EngineContext.*;
-import static java.util.stream.Collectors.toMap;
+import static hexlet.code.utils.EngineHelper.buildGamesMap;
 
 public class Engine {
     public static final String NO = "no";
@@ -40,9 +40,7 @@ public class Engine {
 
     public static Engine of(List<Game> games) {
         Engine engine = new Engine();
-        engine.gamesMap = new HashMap<>( // avoid immutable
-                IntStream.range(0, games.size()).boxed()
-                        .collect(toMap(i -> String.valueOf(i + 2), games::get)));
+        engine.gamesMap = buildGamesMap(games);
         engine.commands = new HashMap<>();
         return engine;
     }
@@ -79,17 +77,18 @@ public class Engine {
         startByName(game.getSimpleName());
     }
 
-    private void doStart() {
-        cli.println(context.printSelect());
-        final String userAnswer = inputInterceptors.process(cli.readInput(true));
-
-        context.selectByKey(userAnswer);
-        doGameplay();
-    }
-
     private void startByName(String game) {
         context.selectByName(game);
         doGameplay();
+    }
+
+    private void doStart() {
+        cli.println(context.printSelect());
+        final String userAnswer = inputInterceptors.process(cli.readInput(true));
+        if (!userAnswer.isBlank()) {
+            context.selectByKey(userAnswer);
+            doGameplay();
+        }
     }
 
     private void doGameplay() {
@@ -100,7 +99,7 @@ public class Engine {
                             .question()
                     );
 
-            final String userAnswer =cli.readInput();
+            final String userAnswer = cli.readInput();
             cli.println("Your answer: %s".formatted(userAnswer));
 
             if (context.currentGame().isWin(userAnswer)) {
