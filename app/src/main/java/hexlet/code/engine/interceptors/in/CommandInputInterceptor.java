@@ -5,7 +5,7 @@ import hexlet.code.engine.Engine;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class CommandInputInterceptor implements InputInterceptor {
+public class CommandInputInterceptor  implements InputInterceptor {
     private final Map<String, Consumer<Engine>> commands;
     private final Engine engine;
 

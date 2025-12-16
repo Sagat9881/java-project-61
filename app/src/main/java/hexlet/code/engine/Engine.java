@@ -5,7 +5,9 @@ import hexlet.code.adapter.GameAdapter;
 import hexlet.code.engine.interceptors.in.CommandInputInterceptor;
 import hexlet.code.engine.interceptors.in.GreetingInterceptor;
 import hexlet.code.engine.interceptors.in.InputInterceptor;
+import hexlet.code.engine.interceptors.in.InterceptorChain;
 import hexlet.code.games.Game;
+import hexlet.code.utils.Chain;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -26,7 +28,7 @@ public class Engine {
 
     private Map<String, Game> gamesMap;
     private Map<String, Consumer<Engine>> commands;
-    private List<InputInterceptor> inputInterceptors;
+    private InterceptorChain inputInterceptors;
     private EngineContext context;
     private GameAdapter cli;
 
@@ -48,14 +50,14 @@ public class Engine {
     public Engine up() {
         return up(
                 new ConsoleGameAdapter(),
-                List.of(
-                        new CommandInputInterceptor(commands,this),
-                        new GreetingInterceptor(this) )
+                Chain.of(
+                        new GreetingInterceptor(this),
+                        new CommandInputInterceptor(this.commands, this))
         );
     }
 
-    public Engine up(GameAdapter cli,List<InputInterceptor> inputInterceptors) {
-        this.inputInterceptors = inputInterceptors;
+    public Engine up(GameAdapter cli, Chain<InputInterceptor> inputInterceptors) {
+        this.inputInterceptors = InterceptorChain.ofDelegateChain(inputInterceptors);
         this.cli = cli;
 
         this.context = new EngineContext(new GameSelector(this.gamesMap));
@@ -68,30 +70,28 @@ public class Engine {
         return this;
     }
 
-
     public void start() {
         doStart();
         printGoodbye();
     }
-    public void start(Class<? extends Game> game) {
-        start(game.getSimpleName());
-    }
 
+    public void start(Class<? extends Game> game) {
+        startByName(game.getSimpleName());
+    }
 
     private void doStart() {
         cli.println(context.printSelect());
-        final String userAnswer = cli.readInput(true);
-
-        inputInterceptors.forEach(i -> i.intercept(userAnswer));
+        final String userAnswer = inputInterceptors.process(cli.readInput(true));
 
         context.selectByKey(userAnswer);
         doGameplay();
     }
 
-    private void start(String game) {
+    private void startByName(String game) {
         context.selectByName(game);
         doGameplay();
     }
+
     private void doGameplay() {
         for (int count = 0; (count < context.currentGame().attempts()) && isNotEnd.get(); count++) {
             cli.println
@@ -100,21 +100,21 @@ public class Engine {
                             .question()
                     );
 
-            final String input = cli.readInput();
-            cli.println("Your answer: %s".formatted(input));
+            final String userAnswer =cli.readInput();
+            cli.println("Your answer: %s".formatted(userAnswer));
 
-            if (context.currentGame().isWin(input)) {
-                cli.println(context.currentGame().congratulations(input));
+            if (context.currentGame().isWin(userAnswer)) {
+                cli.println(context.currentGame().congratulations(userAnswer));
             } else {
-                cli.println(context.currentGame().failure(input));
+                cli.println(context.currentGame().failure(userAnswer));
                 cli.println("Let's try again, %s!".formatted(currentPlayer.get().name()));
             }
         }
     }
+
     private void printGoodbye() {
         cli.println("Good bye, %s!".formatted(currentPlayer.get().name()));
     }
-
 }
 
 
