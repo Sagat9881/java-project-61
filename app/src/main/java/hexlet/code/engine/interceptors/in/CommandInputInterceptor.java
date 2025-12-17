@@ -17,7 +17,7 @@ public class CommandInputInterceptor  implements InputInterceptor {
     @Override
     public String doIntercept(String input) {
         commands.get(input).accept(engine);
-        return input;
+        return "";
     }
 
     @Override

@@ -19,6 +19,11 @@ public class ConsoleGameAdapter implements GameAdapter {
     }
 
     @Override
+    public void print(String s) {
+        out.print(s);
+    }
+
+    @Override
     public String readInput(boolean allowEmptyInput) {
         return retryableRead(allowEmptyInput);
     }

@@ -64,7 +64,6 @@ public class Engine {
         cli.setIn(new BufferedReader(new InputStreamReader(System.in)));
         cli.setOut(System.out);
 
-        cli.println("Welcome to the Brain Games!");
         return this;
     }
 
@@ -84,7 +83,10 @@ public class Engine {
 
     private void doStart() {
         cli.println(context.printSelect());
+
+        cli.print("Your choice: ");
         final String userAnswer = inputInterceptors.process(cli.readInput(true));
+        cli.println("Welcome to the Brain Games!");
 
         if (!userAnswer.isBlank()) {
             context.selectByKey(userAnswer);

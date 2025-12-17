@@ -5,6 +5,7 @@ import java.io.PrintStream;
 
 public interface GameAdapter {
     void println(String s);
+    void print(String s);
     String readInput(boolean allowEmptyInput);
     void setIn(BufferedReader in);
     void setOut(PrintStream out );
