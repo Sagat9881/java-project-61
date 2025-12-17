@@ -85,11 +85,12 @@ public class Engine {
         cli.println(context.printSelect());
 
         cli.print("Your choice: ");
-        final String userAnswer = inputInterceptors.process(cli.readInput(true));
+        String answer = cli.readInput(true);
         cli.println("Welcome to the Brain Games!");
 
-        if (!userAnswer.isBlank()) {
-            context.selectByKey(userAnswer);
+        final String interceptedAnswer = inputInterceptors.process(answer);
+        if (!interceptedAnswer.isBlank()) {
+            context.selectByKey(interceptedAnswer);
             doGameplay();
         }
     }
