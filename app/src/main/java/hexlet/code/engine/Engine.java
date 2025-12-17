@@ -8,10 +8,7 @@ import hexlet.code.engine.interceptors.in.InputInterceptor;
 import hexlet.code.engine.interceptors.in.InterceptorChain;
 import hexlet.code.games.Game;
 import hexlet.code.utils.Chain;
-import hexlet.code.utils.EngineHelper;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,19 +53,20 @@ public class Engine {
 
     public Engine up(GameAdapter cli, Chain<InputInterceptor> inputInterceptors) {
         this.inputInterceptors = InterceptorChain.ofDelegateChain(inputInterceptors);
+
         this.cli = cli;
+        this.cli.setIn(System.in);
+        this.cli.setOut(System.out);
 
         this.context = new EngineContext(new GameSelector(this.gamesMap));
-        commands.put(EXIT_KEY, (s) -> s.isNotEnd.set(false));
 
-        cli.setIn(new BufferedReader(new InputStreamReader(System.in)));
-        cli.setOut(System.out);
+        commands.put(EXIT_KEY, (s) -> s.isNotEnd.set(false));
 
         return this;
     }
 
     public void start() {
-        doStart();
+        selectAndStart();
         printGoodbye();
     }
 
@@ -81,7 +79,7 @@ public class Engine {
         doGameplay();
     }
 
-    private void doStart() {
+    private void selectAndStart() {
         cli.println(context.printSelect());
 
         cli.print("Your choice: ");

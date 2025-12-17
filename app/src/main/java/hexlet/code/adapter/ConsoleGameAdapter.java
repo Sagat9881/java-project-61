@@ -1,7 +1,6 @@
 package hexlet.code.adapter;
 
-import java.io.BufferedReader;
-import java.io.PrintStream;
+import java.io.*;
 
 public class ConsoleGameAdapter implements GameAdapter {
     private BufferedReader in;
@@ -29,13 +28,13 @@ public class ConsoleGameAdapter implements GameAdapter {
     }
 
     @Override
-    public void setIn(BufferedReader in) {
-        this.in = in;
+    public void setIn(InputStream in) {
+        this.in = new BufferedReader(new InputStreamReader(in));
     }
 
     @Override
-    public void setOut(PrintStream out) {
-        this.out = out;
+    public void setOut(OutputStream out) {
+        this.out =new PrintStream(out, true);
     }
 
     private String retryableRead(boolean allowEmptyInput) {

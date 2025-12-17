@@ -1,14 +1,14 @@
 package hexlet.code.adapter;
 
-import java.io.BufferedReader;
-import java.io.PrintStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public interface GameAdapter {
     void println(String s);
     void print(String s);
     String readInput(boolean allowEmptyInput);
-    void setIn(BufferedReader in);
-    void setOut(PrintStream out );
+    void setIn(InputStream in);
+    void setOut(OutputStream out );
 
 
     default String readInput(){
