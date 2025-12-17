@@ -67,7 +67,6 @@ public class Engine {
 
     public void start() {
         selectAndStart();
-        printGoodbye();
     }
 
     public void start(Class<? extends Game> game) {
@@ -84,12 +83,13 @@ public class Engine {
 
         cli.print("Your choice: ");
         String answer = cli.readInput(true);
-        cli.println("Welcome to the Brain Games!");
+        cli.println("\nWelcome to the Brain Games!");
 
         final String interceptedAnswer = inputInterceptors.process(answer);
         if (!interceptedAnswer.isBlank()) {
             context.selectByKey(interceptedAnswer);
             doGameplay();
+//            printGoodbye();
         }
     }
 
