@@ -12,7 +12,7 @@ public class Greeting extends SimpleGame {
     @Override
     public String congratulations(String answerRequest) {
         currentPlayer.set(new Player(answerRequest));
-        return "Hellow, %s!".formatted(answerRequest);
+        return "Hello, %s!".formatted(answerRequest);
     }
 
     public Greeting() {
